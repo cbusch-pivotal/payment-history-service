@@ -1,0 +1,12 @@
+---
+applications:
+- name: payment-history-service
+  memory: 512M
+  host: payment-history-service-test
+  path: target/payment-history-service-0.0.1.SNAPSHOT.jar
+  buildpack: java_buildpack
+  services:
+    - payment-history-service-db
+    - payment-mq
+  env:
+    EUREKA_SERVER: http://payments-eureka-server-test.pcf1.fe.gopivotal.com/eureka/

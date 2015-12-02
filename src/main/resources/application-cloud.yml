@@ -1,0 +1,11 @@
+---
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER}
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+    metadataMap:
+      instanceId: ${vcap.application.instance_id}
+
