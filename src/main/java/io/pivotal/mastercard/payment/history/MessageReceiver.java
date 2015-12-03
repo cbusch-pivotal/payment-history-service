@@ -41,6 +41,6 @@ public class MessageReceiver {
 		log.debug(String.format("Saved payment message received: %s", payment));
 		
 		DeviceNotificationResponse response = consumerMessagingClient.getDeviceNotificationResponse();
-		log.debug(String.format("Received device notification response [%s]", response));
+		log.debug(String.format("Received device notification response [%s]", response.getNotifyStatus()));
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 
 /**
@@ -88,6 +89,32 @@ public class PaymentHistoryServiceApplication {
 		container.setMessageListener(listenerAdapter);
 		container.setQueueNames("payment-queue");
 		return container;
+	}
+	
+	/**
+	 * Gets a JAXB marshaller for generated WS clients
+	 * @return A JAXB marshaller for generated WS clients
+	 */
+	@Bean
+	Jaxb2Marshaller marshaller() {
+		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+		marshaller.setContextPath("io.pivotal.mastercard.payment.consumermessaging.client");
+		return marshaller;
+	}
+	
+	/**
+	 * Gets a consumer messaging WS client bean
+	 * @param marshaller The JAXB marshaller to use
+	 * @return A consumer messaging WS client bean
+	 */
+	@Bean
+	ConsumerMessagingClient consumerMessagingClient(Jaxb2Marshaller marshaller) {
+		ConsumerMessagingClient consumerMessagingClient = new ConsumerMessagingClient();
+		consumerMessagingClient.setMarshaller(marshaller);
+		consumerMessagingClient.setUnmarshaller(marshaller);
+		consumerMessagingClient.setDefaultUri(
+				"http://consumer-messaging-service-dev.pcf1.fe.gopivotal.com/MessagingService");
+		return consumerMessagingClient;
 	}
 	
 	/**
