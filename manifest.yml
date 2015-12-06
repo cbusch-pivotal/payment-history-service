@@ -9,4 +9,4 @@ applications:
     - payment-history-service-db
     - payment-mq
   env:
-    EUREKA_SERVER: http://payment-eureka-server.pcf1.fe.gopivotal.com/eureka/
+    EUREKA_SERVER: http://payments-eureka-server.pcf1.fe.gopivotal.com/eureka/
